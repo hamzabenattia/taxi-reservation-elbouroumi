@@ -154,7 +154,7 @@ class ReservationCrudController extends AbstractCrudController
         $reservation->setStatus(status: Reservation::STATUS_CONFIRMED);
 
         $this->emailSender->sendEmail(
-            'noreply@taxi.fr',
+            'noreply@ebtaxi91.fr',
             $reservation->getClient()->getEmail(),
             'Votre réservation a été acceptée',
             'emails/Client/reservationAccecpter.html.twig',
@@ -176,7 +176,7 @@ public function rejectReservation(BatchActionDto $batchActionDto, ReservationRep
         $reservation->setStatus(status: Reservation::STATUS_CANCELLED);
 
         $this->emailSender->sendEmail(
-            'noreply@taxi.fr',
+            'noreply@ebtaxi91.fr',
             $reservation->getClient()->getEmail(),
             'Votre réservation a été refusée',
             'emails/Client/reservationRefuser.html.twig',

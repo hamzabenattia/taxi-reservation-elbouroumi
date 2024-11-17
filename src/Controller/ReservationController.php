@@ -94,7 +94,7 @@ class ReservationController extends AbstractController
 
 
         $this->emailSender->sendEmail(
-            'ebtaxi91@gmail.com',
+            'noreply@ebtaxi91.fr',
             $reservation->getClient()->getEmail(),
             'Votre réservation a été acceptée',
             'emails/Client/reservationAccecpter.html.twig',
@@ -120,7 +120,7 @@ class ReservationController extends AbstractController
         $manager->flush();
 
         $this->emailSender->sendEmail(
-            'ebtaxi91@gmail.com',
+            'noreply@ebtaxi91.fr',
             $reservation->getClient()->getEmail(),
             'Votre réservation a été refusée',
             'emails/Client/reservationRefuser.html.twig',
