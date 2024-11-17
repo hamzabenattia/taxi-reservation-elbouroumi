@@ -95,7 +95,7 @@ class HomeController extends AbstractController
             $this->emailSender->sendEmail(
               'noreply@ebtaxi91.fr',
               $driverRepo->findAll()[0]->getEmail(),
-                'Nouvelle réservation de taxi',
+                'Nouvelle réservation de taxi N°'.$reservation->getId(),
                 'emails/reservationconfirmation.html.twig',
                 [
                     'date' => new \DateTime(),
