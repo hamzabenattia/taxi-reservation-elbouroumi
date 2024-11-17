@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <script src="
+        https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js
+        "></script>       
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+        
+    {% include "components/_navbar.html.twig" %}
+        {% block body %}{% endblock %}
+        {% include "components/_footer.html.twig" %}
+
+    </body>
+</html>

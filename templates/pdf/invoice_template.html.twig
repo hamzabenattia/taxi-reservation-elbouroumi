@@ -1,0 +1,79 @@
+{# templates/invoice_template.html.twig #}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Facture Invoice</title>
+    <!-- Add your CSS styles here -->
+    <style>
+        /* Example styles */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .invoice {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        .invoice-title {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .invoice-item {
+            margin-bottom: 10px;
+        }
+        .invoice-item label {
+            font-weight: bold;
+        }
+        .price{
+            font-weight: bold;
+            align-items: end;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice">
+        <div class="invoice-title">Facture </div>
+        <div class="invoice-details">
+            <div class="invoice-item">
+                <label>Numéro de facture:</label> {{ reservation.facture.id }}
+            </div>
+            <div class="invoice-item">
+                <label>Date de création:</label> {{ reservation.facture.createdAt|date('d/m/Y') }}
+            </div>
+            <div class="invoice-item">
+                <label>Numéro de Réservation :</label> {{ reservation.id}}
+
+            <div class="invoice-item">
+                <label>Client:</label> {{ reservation.client.firstName }} {{ reservation.client.lastName }}
+            </div>
+
+            <div class="invoice-item">
+                <label>Addresse de départ:</label> {{ reservation.depAddress }}
+            </div>
+            <div class="invoice-item">
+                <label>Destination:</label> {{ reservation.destination }}
+            </div>
+                        
+           
+            <div class="price">
+                <label>Prix HT:</label> {{ reservation.facture.priceHT //100 }} $
+            </div>
+            <div class="price">
+                <label>Prix TTC:</label> {{ reservation.facture.priceTTC //100}}$
+
+            </div>
+
+
+
+            <div>
+                <small>
+      <p>Merci d'avoir utilisé Taxi Rapide pour votre déplacement !</p>
+                     
+                </small>
+                 
+            </div>
+        </div>
+    </div>
+</body>
+</html>

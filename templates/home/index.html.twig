@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil
+{% endblock %}
+
+{% block body %}
+
+	{# Home Hero #}
+	{% include "components/home/hero.html.twig" %}
+
+
+	{# Reservation Form  #}
+	
+	{% include "components/reservationForm.html.twig" %}
+
+
+
+
+	{% include "components/home/someNumbers.html.twig" %}
+
+
+    {# Features #}
+
+    {% include "components/home/feature.html.twig" %}
+
+    {# Accordion #}
+    {% include "components/home/accordion.html.twig" %}
+
+    {# Contact #}
+
+
+	{% include "components/home/contact.html.twig" %}
+
+
+{% endblock %}
