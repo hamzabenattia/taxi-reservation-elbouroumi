@@ -156,7 +156,7 @@ class ReservationCrudController extends AbstractCrudController
         $this->emailSender->sendEmail(
             'noreply@ebtaxi91.fr',
             $reservation->getClient()->getEmail(),
-            'Votre réservation a été acceptée',
+            'Votre réservation N° '.$reservation->getId().' a été acceptée',
             'emails/Client/reservationAccecpter.html.twig',
             [
                 'reservation' => $reservation
@@ -178,7 +178,7 @@ public function rejectReservation(BatchActionDto $batchActionDto, ReservationRep
         $this->emailSender->sendEmail(
             'noreply@ebtaxi91.fr',
             $reservation->getClient()->getEmail(),
-            'Votre réservation a été refusée',
+            'Votre réservation N° '.$reservation->getId().' a été refusée',
             'emails/Client/reservationRefuser.html.twig',
             [
                 'reservation' => $reservation
