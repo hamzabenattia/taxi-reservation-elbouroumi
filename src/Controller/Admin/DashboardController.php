@@ -39,7 +39,7 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('TAXI EL BOUROUMI');
+            ->setTitle('Taxi Reservation');
             
     }
 
@@ -70,7 +70,7 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Tableau de bord', 'fa fa-home');
+        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Reservation', 'fas fa-taxi', Reservation::class);
         yield MenuItem::linkToCrud('Facture', 'fas fa-file-invoice', Facture::class);
         yield MenuItem::linkToCrud('Messages', 'fas fa-sms', Contact::class);
