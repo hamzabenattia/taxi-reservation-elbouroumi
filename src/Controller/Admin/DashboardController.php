@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Client;
 use App\Entity\Contact;
 use App\Entity\Driver;
 use App\Entity\Facture;
@@ -39,7 +40,7 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Taxi Reservation');
+            ->setTitle('TAXI EL BOUROUMI ');
             
     }
 
@@ -70,9 +71,10 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linkToDashboard('Tableau de bord', 'fa fa-home');
         yield MenuItem::linkToCrud('Reservation', 'fas fa-taxi', Reservation::class);
         yield MenuItem::linkToCrud('Facture', 'fas fa-file-invoice', Facture::class);
+        yield MenuItem::linkToCrud('Client', 'fas fa-users', Client::class);
         yield MenuItem::linkToCrud('Messages', 'fas fa-sms', Contact::class);
         yield MenuItem::linkToCrud('Profile', 'fa fa-id-card',Driver::class)->setEntityId(
             $this->getUser()->getId()

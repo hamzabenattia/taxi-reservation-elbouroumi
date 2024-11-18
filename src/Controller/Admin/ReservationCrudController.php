@@ -56,7 +56,7 @@ class ReservationCrudController extends AbstractCrudController
     {
         return $crud->setEntityLabelInPlural('Reservations')
             ->setEntityLabelInSingular('Reservation')
-            ->setDefaultSort(['createdAt' => 'DESC']);
+            ->setDefaultSort(['reservation_datetime' => 'DESC']);
     }
 
 
