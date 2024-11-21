@@ -1,79 +1,269 @@
-{# templates/invoice_template.html.twig #}
-<!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <title>Facture Invoice</title>
-    <!-- Add your CSS styles here -->
     <style>
-        /* Example styles */
+       body {
+  background: #ccc;
+  padding: 30px;
+  font-size: 0.6em;
+}
+
+h6{font-size:1em;}
+
+.container {
+  width: 21cm;
+  min-height: 29.7cm;
+}
+
+.invoice {
+  background: #fff;
+  width: 100%;
+  padding: 50px;
+}
+
+.logo {
+  width: 4cm;
+}
+
+.document-type {
+  text-align: right;
+  color: #444;
+}
+
+.conditions {
+  font-size: 0.7em;
+  color: #666;
+}
+
+.bottom-page {
+  font-size: 0.7em;
+}
+    </style>
+ <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous" >
+
+</head>
+<body>
+     
+
+    <div class="container">
+            <div class="invoice">
+                <div class="row">
+                    <div class="col-7">
+                        <img src="https://ebtaxi91.fr/logo.jpg" class="logo"/>
+                    </div>
+                    <div class="col-5">
+                        <h1 class="document-type display-4">FACTURE</h1>
+                        <p class="text-right"><strong>#{{ reservation.facture.id }}</strong></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-7">
+                        <p class="addressMySam">
+                            <strong>TAXI EL BOUROUMI</strong><br/>
+                            28 RUE DE L'EUROPE<br/>
+                            91700 VILLIERS-SUR-ORGE
+                        </p>
+                    </div>
+                    <div class="col-5">
+                        <br/><br/><br/>
+                        <p class="addressDriver">
+                            <strong>{{ reservation.client.firstName }} {{ reservation.client.lastName }}</strong><br/>
+                             <span>{{ reservation.client.phoneNumber }}</span>
+                        </p>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+                <h6>Frais de services TAXI EL BOUROUMI le {{ reservation.reservationdatetime|date('d/m/Y') }}
+                </h6>
+                <br/>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>TVA</th>
+                        <th class="text-right">Total HT</th>
+                        <th class="text-right">Total TTC</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            Frais de transport : de {{ reservation.depAddress }}  à  {{ reservation.destination }}
+                        </td>
+                        <td>20%</td>
+                        <td class="text-right" >{{ reservation.facture.priceHT|round('2','common') }}€</td>
+                        <td class="text-right" >{{ reservation.facture.priceTTC}}€</td>
+                    </tr>
+                    
+                   
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-8">
+                    </div>
+                    <div class="col-4">
+                        <table class="table table-sm text-right">
+                            <tr>
+                                <td><strong>Total HT</strong></td>
+                                <td class="text-right">{{ reservation.facture.priceHT|round(2,'common')}}€</td>
+                            </tr>
+                            <tr>
+                                <td>TVA 20%</td>
+                                <td class="text-right">{{(reservation.facture.priceTTC - reservation.facture.priceHT)|round('2','common')}}€</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total TTC</strong></td>
+                                <td class="text-right">{{ reservation.facture.priceTTC}}€</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+    
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+    
+                <p class="bottom-page text-right">
+                    TAXI EL BOUROUMI - N° SIRET RCS Evry : 812 502 805 00029<br/>
+                    28 RUE DE L'EUROPE 91700 VILLIERS-SUR-ORGE - www.ebtaxi91.fr/<br/>
+                    N° TVA Intracom. FR83812502805<br/>
+                </p>
+            </div>
+        </div>
+</body>
+</html>
+
+
+
+
+
+
+{# <!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <style>
         body {
             font-family: Arial, sans-serif;
+            font-size: 10pt;
+            color: #333;
+            background-color: #f4f4f4;
         }
-        .invoice {
-            border: 1px solid #ccc;
-            padding: 10px;
+        .container {
+            width: 210mm;
+            margin: 0 auto;
+            background: white;
+            padding: 20mm;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20mm;
+        }
+        .company-info {
+            font-size: 9pt;
+            color: #666;
+            text-align: left;
+        }
+
         .invoice-title {
-            font-size: 20px;
+            font-size: 16pt;
             font-weight: bold;
+            color: #444;
+            text-align: right;
+        }
+        .client-info {
+            margin-bottom: 10mm;
+        }
+        .invoice-details {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .invoice-details th, 
+        .invoice-details td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .invoice-details th {
+            background-color: #f8f8f8;
+        }
+        .totals {
+            margin-top: 10mm;
+            text-align: right;
+        }
+        .footer {
+            margin-top: 20mm;
+            font-size: 8pt;
+            color: #666;
             text-align: center;
-            margin-bottom: 20px;
-        }
-        .invoice-item {
-            margin-bottom: 10px;
-        }
-        .invoice-item label {
-            font-weight: bold;
-        }
-        .price{
-            font-weight: bold;
-            align-items: end;
         }
     </style>
 </head>
 <body>
-    <div class="invoice">
-        <div class="invoice-title">Facture </div>
-        <div class="invoice-details">
-            <div class="invoice-item">
-                <label>Numéro de facture:</label> {{ reservation.facture.id }}
+    <div class="container">
+        <div class="header">
+            <div class="company-logo">
+               
+                    <img src="https://ebtaxi91.fr/logo.jpg" alt="Company Logo" style="max-width: 50mm;">
             </div>
-            <div class="invoice-item">
-                <label>Date de création:</label> {{ reservation.facture.createdAt|date('d/m/Y') }}
+            <div class="company-info">
+                <div class="invoice-title">FACTURE DE TRANSPORT</div>
+                <div class="company-info">
+                   TAXI EL BOUROUMI <br>
+                  28 RUE DE L'EUROPE </br>91700 VILLIERS-SUR-ORGE  <br>
+                  
+                </div>
             </div>
-            <div class="invoice-item">
-                <label>Numéro de Réservation :</label> {{ reservation.id}}
+        </div>
 
-            <div class="invoice-item">
-                <label>Client:</label> {{ reservation.client.firstName }} {{ reservation.client.lastName }}
-            </div>
+        <div class="client-info">
+            <strong>Client:</strong><br>
+            {{ reservation.client.firstName }} {{ reservation.client.lastName }}<br>
+            {{ reservation.client.phoneNumber }}<br>
+        </div>
 
-            <div class="invoice-item">
-                <label>Addresse de départ:</label> {{ reservation.depAddress }}
-            </div>
-            <div class="invoice-item">
-                <label>Destination:</label> {{ reservation.destination }}
-            </div>
-                        
-           
-            <div class="price">
-                <label>Prix HT:</label> {{ reservation.facture.priceHT //100 }} $
-            </div>
-            <div class="price">
-                <label>Prix TTC:</label> {{ reservation.facture.priceTTC //100}}$
+        <table class="invoice-details">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Trajet</th>
+                    <th>Prix HT</th>
+                    <th>TVA (20%)</th>
+                    <th>Prix TTC</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Service de Transport</td>
+                    <td>{{ reservation.reservationdatetime|date('d/m/Y') }}</td>
+                    <td>
+                        De: {{ reservation.depAddress }}<br>
+                        À: {{ reservation.destination }}
+                    </td>
+                    <td>{{ reservation.facture.priceHT|round('2','common') }} €</td>
+                    <td>{{(reservation.facture.priceTTC - reservation.facture.priceHT)|round('2','common')}}€</td>
+                    <td>{{ reservation.facture.priceTTC}}€</td>
+                </tr>
+            </tbody>
+        </table>
 
-            </div>
+        <div class="totals">
+            <strong>Total HT:</strong> {{ reservation.facture.priceHT|round('2','common') }} €<br>
+            <strong>TVA (20%):</strong> {{(reservation.facture.priceTTC - reservation.facture.priceHT)|round('2','common')}} €<br>
+            <strong>Total TTC:</strong> {{ reservation.facture.priceTTC}}€
+        </div>
 
-
-
-            <div>
-                <small>
-      <p>Merci d'avoir utilisé Taxi Rapide pour votre déplacement !</p>
-                     
-                </small>
-                 
-            </div>
+        <div class="footer">
+            Merci pour votre confiance
+            <br>
+            TAXI EL BOUROUMI </br>
+            SIRET RCS Evry : 812 502 805 00029<br>
+            TVA Intracom: FR83812502805
         </div>
     </div>
 </body>
-</html>
+</html> #}

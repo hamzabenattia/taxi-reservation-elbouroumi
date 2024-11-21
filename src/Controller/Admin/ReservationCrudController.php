@@ -70,49 +70,18 @@ class ReservationCrudController extends AbstractCrudController
         } else {
             $facture = $entityInstance->getFacture();
         }
-        $facture->setPriceTTC($entityInstance->getPrice() * 1.2);
+        $facture->setPriceTTC($entityInstance->getPrice());
+        $facture->setPriceHT($entityInstance->getPrice()/1.2);
         $facture->setReservation($entityInstance);
         $facture->setClient($entityInstance->getClient());
-        $facture->setPriceHT($entityInstance->getPrice());
         $entityInstance->setFacture($facture);
         // $facture->setTVA(20);
         $entityManager->persist($facture);
         $entityManager->flush();
 
 
-        if ($entityInstance->getStatus() == Reservation::STATUS_CONFIRMED) {
-            $this->emailSender->sendEmail(
-                $this->params->get('emailAddress'),
-                $entityInstance->getClient()->getEmail(),
-                'Votre réservation a été acceptée',
-                'emails/Client/reservationAccecpter.html.twig',
-                [
-                    'reservation' => $entityInstance
-                ]
-            );
-        } elseif ($entityInstance->getStatus() == Reservation::STATUS_CANCELLED) {
-            $this->emailSender->sendEmail(
-                $this->params->get('emailAddress'),
-                $entityInstance->getClient()->getEmail(),
-                'Votre réservation a été refusée',
-                'emails/Client/reservationRefuser.html.twig',
-                ['reservation' => $entityInstance]
-            );
-        }
-
-
-
-        // Render HTML template for the invoice
-        $htmlTemplate = $this->twig->render('pdf/invoice_template.html.twig', [
-            'invoice' => $facture,
-            'reservation' => $entityInstance,
-        ]);
-
-
         // Generate PDF for the new Facture
-        $factureName = $this->pdfGenerator->generateFacturePdf($htmlTemplate, $facture);
-
-
+        $factureName = $this->pdfGenerator->generateFacturePdf($entityInstance, $facture);
         $facture->setName($factureName);
         $entityManager->persist($facture);
         $entityManager->flush();
@@ -219,13 +188,13 @@ public function rejectReservation(BatchActionDto $batchActionDto, ReservationRep
             NumberField::new('nbPassengers')->onlyOnIndex()->setLabel('Nombre de passagers'),
             NumberField::new('nbPassengers')->onlyOnDetail()->setLabel('Nombre de passagers'),
 
-            MoneyField::new('price')->setCurrency('EUR')->setLabel('Prix'),
+            MoneyField::new('price')->setCurrency('EUR')->setLabel('Prix')->setStoredAsCents(false)->setNumDecimals(2),
             ChoiceField::new('status')->setChoices([
                 'Confirmé' => Reservation::STATUS_CONFIRMED,
                 'Annulé' => Reservation::STATUS_CANCELLED,
                 'En attente' => Reservation::STATUS_PENDING,
 
-            ]),
+            ])->hideOnForm(),
             TextField::new('client.phoneNumber')->onlyOnDetail()->setLabel('Numéro de téléphone de client'),
             TextField::new('client.email')->onlyOnDetail()->setLabel('Email de client'),
             TextField::new('client.firstName')->onlyOnDetail()->setLabel('Prénom de client'),

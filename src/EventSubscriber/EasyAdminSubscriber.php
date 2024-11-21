@@ -49,37 +49,24 @@ class EasyAdminSubscriber implements EventSubscriberInterface
     {
         $entity = $event->getEntityInstance();
 
-    
-
         if (!($entity instanceof Facture)) {
             return;
         }
 
+       
 
         $reservation = $this->repo->findOneBy(['id' => $entity->getReservation()]);
 
         if ($reservation){
             $reservation->setPrice($entity->getPriceTTC());
-           $this->manager->flush();
+            $entity->setClient($reservation->getClient());
         }
         
 
+    $filename = $this->pdfGenerator->generateFacturePdf($reservation,$entity);
 
-        // Render HTML template for the invoice
-        $htmlTemplate = $this->twig->render('pdf/invoice_template.html.twig', [
-            'invoice' => $entity,
-            'reservation' => $reservation,
-
-        ]);
-
-
-        // Generate PDF for the new Facture
-        $this->logger->debug('pdf pas encore generer');
-
-
-      $this->pdfGenerator->generateFacturePdf($htmlTemplate,$entity);
-
-    
+      $entity->setName($filename);
+      $this->manager->flush();
 
         
     }

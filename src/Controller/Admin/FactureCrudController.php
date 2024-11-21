@@ -27,10 +27,7 @@ class FactureCrudController extends AbstractCrudController
             ->remove(Crud::PAGE_INDEX, Action::DELETE)
             ->add(Crud::PAGE_EDIT, Action::INDEX)
             ->add(Crud::PAGE_NEW, Action::INDEX)
-
             ;
-
-
         }
 
 
@@ -44,8 +41,8 @@ class FactureCrudController extends AbstractCrudController
             IdField::new('id')->onlyOnIndex(),
             // TextField::new('reservation'),
             AssociationField::new('reservation')->autocomplete(),
-            MoneyField::new('priceHT')->setCurrency('EUR')->onlyOnIndex(),
-            MoneyField::new('priceTTC')->setCurrency('EUR'),
+            MoneyField::new('priceHT')->setCurrency('EUR')->onlyOnIndex()->setStoredAsCents(false)->setNumDecimals(2),
+            MoneyField::new('priceTTC')->setCurrency('EUR')->setStoredAsCents(false)->setNumDecimals(2),
         ];
     }
     
