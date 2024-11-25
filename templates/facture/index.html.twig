@@ -65,7 +65,9 @@ Taxi El Bouroumi Facture N°{{facture.id}}
                         <p class="addressMySam">
                             <strong>TAXI EL BOUROUMI</strong><br/>
                             28 RUE DE L'EUROPE<br/>
-                            91700 VILLIERS-SUR-ORGE
+                            91700 VILLIERS-SUR-ORGE<br/>
+                            Tel : (+33) 6.58.98.87.07
+
                         </p>
                     </div>
                     <div class="col-5">
@@ -95,7 +97,7 @@ Taxi El Bouroumi Facture N°{{facture.id}}
                         <td>
                             Frais de transport : de {{ facture.reservation.depAddress }}  à  {{ facture.reservation.destination }}
                         </td>
-                        <td>20%</td>
+                        <td>10%</td>
                         <td class="text-right" >{{ facture.priceHT|round('2','common') }}€</td>
                         <td class="text-right" >{{ facture.priceTTC}}€</td>
                     </tr>
@@ -116,7 +118,7 @@ Taxi El Bouroumi Facture N°{{facture.id}}
                                 <td class="text-right">{{ facture.priceHT|round(2,'common')}}€</td>
                             </tr>
                             <tr>
-                                <td>TVA 20%</td>
+                                <td>TVA 10%</td>
                                 <td class="text-right">{{(facture.priceTTC - facture.priceHT)|round('2','common')}}€</td>
                             </tr>
                             <tr>
