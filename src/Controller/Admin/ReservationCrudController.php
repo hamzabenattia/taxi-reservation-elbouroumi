@@ -71,7 +71,7 @@ class ReservationCrudController extends AbstractCrudController
             $facture = $entityInstance->getFacture();
         }
         $facture->setPriceTTC($entityInstance->getPrice());
-        $facture->setPriceHT($entityInstance->getPrice()/1.2);
+        $facture->setPriceHT($entityInstance->getPrice()/ Facture::TVA);
         $facture->setReservation($entityInstance);
         $facture->setClient($entityInstance->getClient());
         $entityInstance->setFacture($facture);
@@ -99,9 +99,6 @@ class ReservationCrudController extends AbstractCrudController
                 ];
             });
            
-            
-
-
 
         return $actions
             // ...

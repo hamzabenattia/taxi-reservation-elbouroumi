@@ -10,6 +10,9 @@ use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 #[ORM\Entity(repositoryClass: FactureRepository::class)]
 class Facture
 {
+
+    const TVA = 1.1; 
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -41,7 +44,7 @@ class Facture
     public function prePersist(): void
     {
         $this->createdAt = new \DateTimeImmutable();
-        $this->priceHT = $this->PriceTTC / 1.2;
+        $this->priceHT = $this->PriceTTC / self::TVA;
     }
 
     public function getId(): ?int

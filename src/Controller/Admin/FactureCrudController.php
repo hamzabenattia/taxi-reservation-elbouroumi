@@ -37,13 +37,8 @@ class FactureCrudController extends AbstractCrudController
             ->add(Crud::PAGE_EDIT, Action::INDEX)
             ->add(Crud::PAGE_NEW, Action::INDEX)
             ->add(Crud::PAGE_INDEX, $viewInvoice);
-    
             ;
         }
-
-
-
-
 
     
     public function configureFields(string $pageName): iterable
