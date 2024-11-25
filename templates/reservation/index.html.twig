@@ -116,6 +116,8 @@
                 </td>
 
                 <td class="px-6 py-4 flex flex-col lg:flex-row">
+                {% if reservation.status == "PENDING" %}
+
                     <a href="{{path('edit_reservation',{id:reservation.id})}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                         Modifier
                     </a>
@@ -125,10 +127,19 @@
 
                     {% include "components/_deleteModel.html.twig"%}
 
+{% else %}
+
+  <a href="{{path('app_facture',{id:reservation.getFacture})}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                       Voir Facture
+                    </a>
+
+
                     
-                    
+                                          {% endif %}
+  
 
                 </td>
+
             </tr> 
 
             {% endfor %}

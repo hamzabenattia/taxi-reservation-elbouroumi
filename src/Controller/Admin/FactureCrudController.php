@@ -22,11 +22,22 @@ class FactureCrudController extends AbstractCrudController
 
     public function configureActions(Actions $actions): Actions
     {
+
+        $viewInvoice = Action::new('Consulter')
+        ->linkToRoute('app_facture', function (Facture $facture): array {
+            return [
+                'id' => $facture,
+            ];
+        });
+
+
         return $actions
             // ...
             ->remove(Crud::PAGE_INDEX, Action::DELETE)
             ->add(Crud::PAGE_EDIT, Action::INDEX)
             ->add(Crud::PAGE_NEW, Action::INDEX)
+            ->add(Crud::PAGE_INDEX, $viewInvoice);
+    
             ;
         }
 
@@ -45,5 +56,7 @@ class FactureCrudController extends AbstractCrudController
             MoneyField::new('priceTTC')->setCurrency('EUR')->setStoredAsCents(false)->setNumDecimals(2),
         ];
     }
+
+    
     
 }

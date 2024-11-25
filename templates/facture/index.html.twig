@@ -1,0 +1,144 @@
+<html lang="fr">
+<head>
+    <style>
+       body {
+  background: #ccc;
+  padding: 25px;
+  font-size: 0.6em;
+}
+
+h6{font-size:1em;}
+
+.container {
+  width: 21cm;
+  min-height: 29.7cm;
+}
+
+.invoice {
+  background: #fff;
+  width: 100%;
+  padding: 50px;
+}
+
+.logo {
+  width: 4cm;
+}
+
+.document-type {
+  text-align: right;
+  color: #444;
+}
+
+.conditions {
+  font-size: 0.7em;
+  color: #666;
+}
+
+.bottom-page {
+  font-size: 0.7em;
+}
+    </style>
+ <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous" >
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<title>
+Taxi El Bouroumi Facture N°{{facture.id}}
+</title>
+</head>
+<body>
+     
+
+    <div class="container">
+            <div class="invoice">
+                <div class="row">
+                    <div class="col-7">
+                        <img src="https://ebtaxi91.fr/logo.jpg" class="logo"/>
+                    </div>
+                    <div class="col-5">
+                        <h1 class="document-type display-4">FACTURE</h1>
+                        <p class="text-right"><strong>#{{ facture.id }}</strong></p>
+                    </div>
+            
+                </div>
+               
+                <div class="row">
+                    <div class="col-7">
+                        <p class="addressMySam">
+                            <strong>TAXI EL BOUROUMI</strong><br/>
+                            28 RUE DE L'EUROPE<br/>
+                            91700 VILLIERS-SUR-ORGE
+                        </p>
+                    </div>
+                    <div class="col-5">
+                        <br/><br/><br/>
+                        <p class="addressDriver">
+                            <strong>{{ facture.client.firstName }} {{ facture.client.lastName }}</strong><br/>
+                             <span>{{ facture.client.phoneNumber }}</span>
+                        </p>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+                <h6>Frais de services TAXI EL BOUROUMI le {{ facture.reservation.reservationdatetime|date('d/m/Y') }}
+                </h6>
+                <br/>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>TVA</th>
+                        <th class="text-right">Total HT</th>
+                        <th class="text-right">Total TTC</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            Frais de transport : de {{ facture.reservation.depAddress }}  à  {{ facture.reservation.destination }}
+                        </td>
+                        <td>20%</td>
+                        <td class="text-right" >{{ facture.priceHT|round('2','common') }}€</td>
+                        <td class="text-right" >{{ facture.priceTTC}}€</td>
+                    </tr>
+                    
+                   
+                    </tbody>
+                </table>
+
+        <button style="font-size:16px" class="btn btn-primary hidden-print"  onclick="window.print()" >Imprimer <i class="fa fa-print"></i></button>
+
+                <div class="row">
+                    <div class="col-8">
+                    </div>
+                    <div class="col-4">
+                        <table class="table table-sm text-right">
+                            <tr>
+                                <td><strong>Total HT</strong></td>
+                                <td class="text-right">{{ facture.priceHT|round(2,'common')}}€</td>
+                            </tr>
+                            <tr>
+                                <td>TVA 20%</td>
+                                <td class="text-right">{{(facture.priceTTC - facture.priceHT)|round('2','common')}}€</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total TTC</strong></td>
+                                <td class="text-right">{{ facture.priceTTC}}€</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+    
+                <br/>
+              
+                <br/>
+
+
+    
+                <p class="bottom-page text-right">
+                    TAXI EL BOUROUMI - N° SIRET RCS Evry : 812 502 805 00029<br/>
+                    28 RUE DE L'EUROPE 91700 VILLIERS-SUR-ORGE - www.ebtaxi91.fr/<br/>
+                    N° TVA Intracom. FR83812502805<br/>
+                </p>
+            </div>
+        </div>
+</body>
+</html>

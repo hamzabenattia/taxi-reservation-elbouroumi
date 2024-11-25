@@ -75,16 +75,15 @@ class ReservationCrudController extends AbstractCrudController
         $facture->setReservation($entityInstance);
         $facture->setClient($entityInstance->getClient());
         $entityInstance->setFacture($facture);
-        // $facture->setTVA(20);
         $entityManager->persist($facture);
         $entityManager->flush();
 
 
         // Generate PDF for the new Facture
-        $factureName = $this->pdfGenerator->generateFacturePdf($entityInstance, $facture);
-        $facture->setName($factureName);
-        $entityManager->persist($facture);
-        $entityManager->flush();
+        // $factureName = $this->pdfGenerator->generateFacturePdf($entityInstance, $facture);
+        // $facture->setName($factureName);
+        // $entityManager->persist($facture);
+        // $entityManager->flush();
     }
 
 
@@ -94,7 +93,13 @@ class ReservationCrudController extends AbstractCrudController
 
         $viewInvoice = Action::new('Facture')
             ->displayIf(fn ($entity) => $entity->getFacture() !== null)
-            ->linkToUrl(fn ($entity) => 'facture/' . $entity->getFacture()->getName());
+            ->linkToRoute('app_facture', function (Reservation $Reservation): array {
+                return [
+                    'id' => $Reservation->getFacture(),
+                ];
+            });
+           
+            
 
 
 
