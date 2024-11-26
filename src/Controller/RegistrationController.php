@@ -97,36 +97,4 @@ class RegistrationController extends AbstractController
 
         return $this->redirectToRoute('app_login');
     }
-
-
-    #[Route('driver/register', name: 'app_driver_register')]
-    public function driverRegister(Request $request, UserPasswordHasherInterface $userPasswordHasher, Security $security, EntityManagerInterface $entityManager): Response
-    {
-        $user = new Driver();
-        $form = $this->createForm(DriverRegistrationFormType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
-            $user->setPassword(
-                    $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
-
-            $entityManager->persist($user);
-            $entityManager->flush();
-        
-
-            // do anything else you need here, like send an email
-
-            return $security->login($user, 'form_login', 'main');
-        }
-
-        return $this->render('/registration/driverregister.html.twig', [
-            'registrationForm' => $form,
-        ]);
-    }
-
 }

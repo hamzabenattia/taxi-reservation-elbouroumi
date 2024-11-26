@@ -34,9 +34,6 @@ class HomeController extends AbstractController
     public function index(Request $request, DriverRepository $driverRepo, ClientRepository $clientRepo , ReservationRepository $reservationRepo): Response
     {
 
-        if ($driverRepo->findAll() == null) {
-           return $this->redirectToRoute('app_driver_register'); 
-        }
         if ($this->isGranted('ROLE_DRIVER'))
         {
             return $this->redirectToRoute('app_dashboard');
