@@ -93,7 +93,7 @@ class Facture
 
     public function __toString(): string
     {
-        return $this->id;
+        return (string)$this->id;
     }
 
     public function getName(): ?string

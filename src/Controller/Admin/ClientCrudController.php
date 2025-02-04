@@ -27,6 +27,7 @@ class ClientCrudController extends AbstractCrudController
             TextField::new('lastName')->setLabel('Nom'),
             TextField::new('address')->setLabel('Addresse Postal'),
             TextField::new('phoneNumber')->setLabel('Numéro de téléphone'),
+            TextField::new('email')->setLabel('Email'),
             AssociationField::new('reservations')->setLabel('N° Reservation')->hideOnForm(),
         ];
     }
@@ -36,9 +37,7 @@ class ClientCrudController extends AbstractCrudController
     public function configureActions(Actions $actions): Actions
     {
         return $actions
-            ->remove(Crud::PAGE_INDEX,  Action::EDIT)
             ->remove(Crud::PAGE_INDEX,  Action::NEW)
-            ->remove(Crud::PAGE_DETAIL, Action::EDIT)
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
             ;
         }
